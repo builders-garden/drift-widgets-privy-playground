@@ -1,4 +1,3 @@
-import "@rainbow-me/rainbowkit/styles.css";
 import type { Metadata } from "next";
 import { Raleway } from "next/font/google";
 import "./globals.css";

@@ -1,24 +1,107 @@
 "use client";
 
 import { useAccount, useWalletClient } from "wagmi";
-import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { Code, monokai } from "react-code-blocks";
-import { Divider } from "@nextui-org/react";
+import { Button, Divider, Input } from "@nextui-org/react";
 import { DriftOfframp } from "@buildersgarden/drift";
+import {
+  useLogin,
+  useLogout,
+  usePrivy,
+  useWallets,
+} from "@privy-io/react-auth";
+import { useSetActiveWallet } from "@privy-io/wagmi";
+import { useMemo, useEffect } from "react";
 
 export default function Home() {
-  const { isConnected } = useAccount();
+  const { authenticated, ready } = usePrivy();
+  const { login } = useLogin();
   const { data: walletClient } = useWalletClient();
+  const { address } = useAccount();
+  const { setActiveWallet } = useSetActiveWallet();
+  const { wallets } = useWallets();
+  const { logout } = useLogout();
+  const embeddedWallet = useMemo(
+    () => wallets.find((wallet) => wallet.walletClientType === "privy"),
+    [wallets]
+  );
+
+  useEffect(() => {
+    if (embeddedWallet) {
+      setActiveWallet(embeddedWallet);
+    }
+  }, [embeddedWallet, setActiveWallet]);
 
   return (
     <div className="min-h-screen min-w-screen text-black">
       <div className="flex flex-col gap-12 justify-center items-center px-48 py-24">
-        <div className="text-4xl font-black">Drift Widgets Playground</div>
+        <div className="text-4xl font-black">
+          Drift Widgets Playground - Privy
+        </div>
         <div className="flex flex-col gap-4 justify-center items-center">
-          <ConnectButton />
-          {isConnected && (
+          {!authenticated && (
+            <Button
+              className="bg-black text-white"
+              radius="md"
+              onClick={() => login()}
+            >
+              Login
+            </Button>
+          )}
+          {authenticated && (
+            <div className="flex flex-col gap-2 w-full">
+              <Input
+                label="Embedded Wallet Address"
+                isReadOnly
+                value={embeddedWallet?.address || ""}
+                variant="flat"
+                classNames={{
+                  input: "text-gray-500",
+                  label: "text-gray-700",
+                }}
+                endContent={
+                  <Button
+                    className="bg-white text-black"
+                    radius="md"
+                    onClick={async () => {
+                      await setActiveWallet(embeddedWallet!);
+                    }}
+                  >
+                    Set Active
+                  </Button>
+                }
+              />
+              <Input
+                label="Active Address"
+                isReadOnly
+                value={address || ""}
+                variant="bordered"
+                classNames={{
+                  input: "text-gray-500",
+                  label: "text-gray-700",
+                }}
+              />
+              <Input
+                label="Connected Address"
+                isReadOnly
+                value={walletClient?.account.address || ""}
+                variant="bordered"
+                classNames={{
+                  input: "text-gray-500",
+                  label: "text-gray-700",
+                }}
+              />
+              <Button color="danger" radius="md" onClick={() => logout()}>
+                Logout
+              </Button>
+            </div>
+          )}
+          {authenticated && ready && walletClient && (
             <div className=" w-fit">
-              <DriftOfframp walletClient={walletClient as never} />
+              <DriftOfframp
+                walletClient={walletClient as never}
+                driftUserId="d36fc997-7264-4b7f-8c81-d09c22a87e1c"
+              />
             </div>
           )}
         </div>
