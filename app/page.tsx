@@ -63,8 +63,8 @@ export default function Home() {
                   <Button
                     className="bg-white text-black"
                     radius="md"
-                    onClick={async () => {
-                      await setActiveWallet(embeddedWallet!);
+                    onClick={() => {
+                      setActiveWallet(embeddedWallet!);
                     }}
                   >
                     Set Active

@@ -32,7 +32,7 @@ export default function Providers({ children }: { children: React.ReactNode }) {
         }}
       >
         <QueryClientProvider client={queryClient}>
-          <WagmiProvider config={config}>
+          <WagmiProvider config={config} >
             <DriftProvider
               appId={process.env.NEXT_PUBLIC_DRIFT_APP_ID as string}
               appSecret={process.env.NEXT_PUBLIC_DRIFT_APP_SECRET as string}
