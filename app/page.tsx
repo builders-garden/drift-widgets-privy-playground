@@ -3,7 +3,7 @@
 import { useAccount, useWalletClient } from "wagmi";
 import { Code, monokai } from "react-code-blocks";
 import { Button, Divider, Input } from "@nextui-org/react";
-import { DriftOfframp } from "@buildersgarden/drift";
+import { DriftOfframp, DriftOfframpModal } from "@buildersgarden/drift";
 import {
   useLogin,
   useLogout,
@@ -11,7 +11,7 @@ import {
   useWallets,
 } from "@privy-io/react-auth";
 import { useSetActiveWallet } from "@privy-io/wagmi";
-import { useMemo, useEffect } from "react";
+import { useMemo, useEffect, useState } from "react";
 
 export default function Home() {
   const { authenticated, ready } = usePrivy();
@@ -21,6 +21,7 @@ export default function Home() {
   const { setActiveWallet } = useSetActiveWallet();
   const { wallets } = useWallets();
   const { logout } = useLogout();
+  const [isOpen, setIsOpen] = useState(false);
   const embeddedWallet = useMemo(
     () => wallets.find((wallet) => wallet.walletClientType === "privy"),
     [wallets]
@@ -59,17 +60,6 @@ export default function Home() {
                   input: "text-gray-500",
                   label: "text-gray-700",
                 }}
-                endContent={
-                  <Button
-                    className="bg-white text-black"
-                    radius="md"
-                    onClick={() => {
-                      setActiveWallet(embeddedWallet!);
-                    }}
-                  >
-                    Set Active
-                  </Button>
-                }
               />
               <Input
                 label="Active Address"
@@ -97,8 +87,24 @@ export default function Home() {
             </div>
           )}
           {authenticated && ready && walletClient && (
-            <div className=" w-fit">
-              <DriftOfframp walletClient={walletClient as never} />
+            <div className="flex flex-col gap-4">
+              <div className=" w-fit">
+                <DriftOfframp walletClient={walletClient as never} />
+              </div>
+
+              <Button
+                onClick={() => setIsOpen(true)}
+                color="primary"
+                className="w-full"
+              >
+                Open Offramp Modal Version
+              </Button>
+
+              <DriftOfframpModal
+                isOpen={isOpen}
+                onClose={() => setIsOpen(false)}
+                walletClient={walletClient as never}
+              />
             </div>
           )}
         </div>
