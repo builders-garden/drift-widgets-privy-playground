@@ -39,7 +39,7 @@ export default function Home() {
     <div className="min-h-screen min-w-screen text-black">
       <div className="flex flex-col gap-12 justify-center items-center px-48 py-24">
         <Link
-          href="https://docs.privy.io/guide/react/wallets/smart-wallets/usage"
+          href="https://github.com/builders-garden/drift-widgets-privy-playground/"
           target="_blank"
         >
           <Button
