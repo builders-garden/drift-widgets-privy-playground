@@ -98,10 +98,7 @@ export default function Home() {
           )}
           {authenticated && ready && walletClient && (
             <div className=" w-fit">
-              <DriftOfframp
-                walletClient={walletClient as never}
-                driftUserId="d36fc997-7264-4b7f-8c81-d09c22a87e1c"
-              />
+              <DriftOfframp walletClient={walletClient as never} />
             </div>
           )}
         </div>
