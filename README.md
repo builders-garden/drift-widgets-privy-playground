@@ -1,11 +1,11 @@
 # Drift Widget Playground
 
-This project is a Next.js application that demonstrates the integration of Drift Widgets, specifically the Drift Offramp widget, along with Rainbow Kit for wallet connection.
+This project is a Next.js application that demonstrates the integration of Drift Widgets, specifically the Drift Offramp widget, along with Privy for wallet connection and authentication.
 
 ## Features
 
 - Drift Offramp widget integration
-- Rainbow Kit wallet connection
+- Privy authentication and wallet connection
 - Responsive design with Tailwind CSS and NextUI
 - Support for Base and Base Sepolia networks
 
@@ -25,6 +25,7 @@ Create a `.env.local` file in the root directory and add the following:
 ```
 NEXT_PUBLIC_DRIFT_APP_ID=your_drift_app_id_here
 NEXT_PUBLIC_DRIFT_APP_SECRET=your_drift_app_secret_here
+NEXT_PUBLIC_PRIVY_APP_ID=your_privy_app_id_here
 ```
 
 4. Run the development server:
@@ -49,7 +50,8 @@ Key dependencies include:
 - Next.js
 - React
 - @buildersgarden/drift
-- @rainbow-me/rainbowkit
+- @privy-io/react-auth
+- @privy-io/wagmi
 - wagmi
 - viem
 - @nextui-org/react
@@ -61,8 +63,9 @@ For a full list of dependencies, refer to the `package.json` file.
 
 The main page (`app/page.tsx`) demonstrates how to use the Drift Offramp widget:
 
-1. Connect your wallet using the Rainbow Kit ConnectButton.
-2. Once connected, the Drift Offramp widget will be displayed.
+1. Login using Privy authentication.
+2. Once authenticated, the Drift Offramp widget will be displayed.
+3. You can also open the Offramp Modal version.
 
 ## Customization
 
@@ -73,7 +76,7 @@ You can customize the appearance of the application by modifying the Tailwind CS
 To learn more about the technologies used in this project:
 
 - [Next.js Documentation](https://nextjs.org/docs)
-- [Rainbow Kit Documentation](https://www.rainbowkit.com/docs/introduction)
+- [Privy Documentation](https://docs.privy.io/)
 - [Wagmi Documentation](https://wagmi.sh/)
 - [NextUI Documentation](https://nextui.org/)
 - [Tailwind CSS Documentation](https://tailwindcss.com/docs)
