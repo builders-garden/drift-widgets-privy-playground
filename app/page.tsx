@@ -12,6 +12,8 @@ import {
 } from "@privy-io/react-auth";
 import { useSetActiveWallet } from "@privy-io/wagmi";
 import { useMemo, useEffect, useState } from "react";
+import Link from "next/link";
+import { Github } from "lucide-react";
 
 export default function Home() {
   const { authenticated, ready } = usePrivy();
@@ -36,6 +38,20 @@ export default function Home() {
   return (
     <div className="min-h-screen min-w-screen text-black">
       <div className="flex flex-col gap-12 justify-center items-center px-48 py-24">
+        <Link
+          href="https://docs.privy.io/guide/react/wallets/smart-wallets/usage"
+          target="_blank"
+        >
+          <Button
+            radius="sm"
+            size="sm"
+            className="text-black border-black"
+            variant="bordered"
+            startContent={<Github className="w-4 h-4" />}
+          >
+            Github
+          </Button>
+        </Link>
         <div className="text-4xl font-black">
           Drift Widgets Playground - Privy
         </div>
