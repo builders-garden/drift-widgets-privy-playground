@@ -13,7 +13,7 @@ import {
 import { useSetActiveWallet } from "@privy-io/wagmi";
 import { useMemo, useEffect, useState } from "react";
 import Link from "next/link";
-import { Github } from "lucide-react";
+import { Book, Github } from "lucide-react";
 import Image from "next/image";
 
 export default function Home() {
@@ -39,20 +39,36 @@ export default function Home() {
   return (
     <div className="min-h-screen min-w-screen text-black">
       <div className="flex flex-col gap-8 md:gap-12 justify-center items-center px-4 md:px-48 py-12 md:py-24">
-        <Link
-          href="https://github.com/builders-garden/drift-widgets-privy-playground/"
-          target="_blank"
-        >
-          <Button
-            radius="sm"
-            size="sm"
-            className="text-black border-black"
-            variant="bordered"
-            startContent={<Github className="w-4 h-4" />}
+        <div className="flex flex-row gap-4 justify-center items-center">
+          <Link
+            href="https://github.com/builders-garden/drift-widgets-privy-playground/"
+            target="_blank"
           >
-            Github
-          </Button>
-        </Link>
+            <Button
+              radius="sm"
+              size="sm"
+              className="text-black border-black"
+              variant="bordered"
+              startContent={<Github className="w-4 h-4" />}
+            >
+              Github
+            </Button>
+          </Link>
+          <Link
+            href="https://builders-garden.notion.site/Drift-SDK-Documentation-120679ed099e80e3a31aeb1567e79d12"
+            target="_blank"
+          >
+            <Button
+              radius="sm"
+              size="sm"
+              className="text-black border-black"
+              variant="bordered"
+              startContent={<Book className="w-4 h-4" />}
+            >
+              Docs
+            </Button>
+          </Link>
+        </div>
         <div className="text-2xl md:text-4xl font-black text-center">
           Drift Widgets Playground - Privy
         </div>
@@ -108,7 +124,6 @@ export default function Home() {
               <div className="w-full">
                 <DriftOfframp walletClient={walletClient as never} />
               </div>
-
               <Button
                 onClick={() => setIsOpen(true)}
                 color="primary"
