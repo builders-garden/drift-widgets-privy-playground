@@ -14,6 +14,7 @@ import { useSetActiveWallet } from "@privy-io/wagmi";
 import { useMemo, useEffect, useState } from "react";
 import Link from "next/link";
 import { Github } from "lucide-react";
+import Image from "next/image";
 
 export default function Home() {
   const { authenticated, ready } = usePrivy();
@@ -37,7 +38,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen min-w-screen text-black">
-      <div className="flex flex-col gap-12 justify-center items-center px-48 py-24">
+      <div className="flex flex-col gap-8 md:gap-12 justify-center items-center px-4 md:px-48 py-12 md:py-24">
         <Link
           href="https://github.com/builders-garden/drift-widgets-privy-playground/"
           target="_blank"
@@ -52,10 +53,10 @@ export default function Home() {
             Github
           </Button>
         </Link>
-        <div className="text-4xl font-black">
+        <div className="text-2xl md:text-4xl font-black text-center">
           Drift Widgets Playground - Privy
         </div>
-        <div className="flex flex-col gap-4 justify-center items-center">
+        <div className="flex flex-col gap-4 justify-center items-center w-full max-w-md">
           {!authenticated && (
             <Button
               className="bg-black text-white"
@@ -103,8 +104,8 @@ export default function Home() {
             </div>
           )}
           {authenticated && ready && walletClient && (
-            <div className="flex flex-col gap-4">
-              <div className=" w-fit">
+            <div className="flex flex-col gap-4 w-full max-w-md">
+              <div className="w-full">
                 <DriftOfframp walletClient={walletClient as never} />
               </div>
 
@@ -125,31 +126,13 @@ export default function Home() {
           )}
         </div>
         <Divider className="w-1/3" />
-        <div className="flex flex-col gap-4 justify-center items-center">
-          <div className="text-xl font-bold">How to use</div>
-          <Code
-            text={"yarn add @buildersgarden/drift"}
-            language={"tsx"}
-            showLineNumbers={false}
-            theme={monokai}
-          />
-          <Code
-            text={
-              "import {DriftOfframp, DriftProvider} from '@buildersgarden/drift'"
-            }
-            language={"tsx"}
-            showLineNumbers={false}
-            theme={monokai}
-          />
-          <Code
-            text={
-              "<DriftProvider appId={'id'} appSecret={'secret'}>\n   /* ... */\n   <DriftOfframp walletClient={walletClient} />\n   /* ... */\n<DriftProvider/>"
-            }
-            language={"tsx"}
-            showLineNumbers={false}
-            theme={monokai}
-          />
-        </div>
+        <Image
+          src="/images/code.svg"
+          alt="Drift Widgets Code"
+          className="w-full max-w-[450px] md:max-w-[550px] lg:max-w-[650px] h-auto"
+          width={700}
+          height={700}
+        />
       </div>
     </div>
   );
