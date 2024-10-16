@@ -7,7 +7,7 @@ import { config } from "@/lib/wagmi";
 import { DriftProvider } from "@buildersgarden/drift";
 import { WagmiProvider } from "@privy-io/wagmi";
 import { PrivyProvider } from "@privy-io/react-auth";
-import { base, baseSepolia } from "viem/chains";
+import { arbitrum, base, baseSepolia, mainnet, optimism, polygon } from "viem/chains";
 
 const queryClient = new QueryClient();
 
@@ -28,7 +28,7 @@ export default function Providers({ children }: { children: React.ReactNode }) {
             noPromptOnSignature: true,
           },
           defaultChain: base,
-          supportedChains: [base, baseSepolia],
+          supportedChains: [base, mainnet, optimism, polygon, arbitrum],
         }}
       >
         <QueryClientProvider client={queryClient}>
